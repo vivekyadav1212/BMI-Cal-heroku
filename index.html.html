@@ -1,0 +1,183 @@
+<html>
+
+    <head>
+        <title>BMI Calculator</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <style>
+            hr {
+            border: 0;
+            height: 1px;
+            background: #333;
+            background-image: linear-gradient(to right, #ccc, #333, #ccc);
+            }
+
+            span { 
+            display: block; 
+            margin-bottom: 2em; 
+            } 
+
+            input{
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            }
+
+            .sk-chase {
+            width: 40px;
+            height: 40px;
+            position: relative;
+            animation: sk-chase 2.5s infinite linear both;
+            }
+
+            .sk-chase-dot {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0; 
+            animation: sk-chase-dot 2.0s infinite ease-in-out both; 
+            }
+
+            .sk-chase-dot:before {
+            content: '';
+            display: block;
+            width: 25%;
+            height: 25%;
+            background-color:black;
+            border-radius: 100%;
+            animation: sk-chase-dot-before 2.0s infinite ease-in-out both; 
+            }
+
+            .sk-chase-dot:nth-child(1) { animation-delay: -1.1s; }
+            .sk-chase-dot:nth-child(2) { animation-delay: -1.0s; }
+            .sk-chase-dot:nth-child(3) { animation-delay: -0.9s; }
+            .sk-chase-dot:nth-child(4) { animation-delay: -0.8s; }
+            .sk-chase-dot:nth-child(5) { animation-delay: -0.7s; }
+            .sk-chase-dot:nth-child(6) { animation-delay: -0.6s; }
+            .sk-chase-dot:nth-child(1):before { animation-delay: -1.1s; }
+            .sk-chase-dot:nth-child(2):before { animation-delay: -1.0s; }
+            .sk-chase-dot:nth-child(3):before { animation-delay: -0.9s; }
+            .sk-chase-dot:nth-child(4):before { animation-delay: -0.8s; }
+            .sk-chase-dot:nth-child(5):before { animation-delay: -0.7s; }
+            .sk-chase-dot:nth-child(6):before { animation-delay: -0.6s; }
+
+            @keyframes sk-chase {
+            100% { transform: rotate(360deg); } 
+            }
+
+            @keyframes sk-chase-dot {
+            80%, 100% { transform: rotate(360deg); } 
+            }
+
+            @keyframes sk-chase-dot-before {
+            50% {
+                transform: scale(0.4); 
+            } 100%, 0% {
+                transform: scale(1.0); 
+            } 
+            }
+
+            .loader-wrapper{
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top:0;
+            left:0;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            overflow:hidden;
+            }
+        </style>
+    </head>
+
+    <body style="background-color:cornsilk;">
+        <div class="loader-wrapper">
+            <div class="sk-chase">
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+                <div class="sk-chase-dot"></div>
+            </div>
+        </div>
+
+        <div class="w3-content w3-animate-zoom w3-padding-large">
+            <div class="w3-container w3-card-2 w3-padding-large" style="background-color: white;">
+                <h1>BMI Calculator</h1>
+                <hr>
+                <p>
+                    Body mass index (BMI) is a measure of body fat that is calculated using the height and weight of a person.
+                    Essentially, it lets you know if your weight is in the "healthy range".
+                </p>
+                <p>
+                    Knowing your BMI is useful, as it can tell you when you may be at risk for a number of health conditions. For
+                    example, a BMI greater than 30 means that you qualify as an obese person, and are at a greater chance of having:
+                </p>
+                <ul>
+                    <li>High blood pressure</li>
+                    <li>Body pain</li>
+                    <li>Heart disease</li>
+                    <li>Type 2 Diabetes</li>
+                </ul>
+                <p>
+                    
+                </p>
+
+                <span></span>
+
+                <h3>How this Works</h3>
+                <hr>
+                <p>
+                    In the form below, please enter your email address, height, and weight. Shortly after you submit your information, we will 
+                    send you an email with the following statistics:
+                </p>
+                <ul>
+                    <li>Your BMI</li>
+                    <li>How healthy your weight is according to the BMI scale</li>
+                    <li>The average BMI of all the people in our database</li>
+                </ul>
+                <p>
+                    Your data is securely stored in our database. The personal information collected is only used for the purposes defined at the 
+                    time of the collection or a use that complies with these purposes. We do not share your information with any third parties.
+                </p>
+
+                <form action="{{url_for('successful')}}" method="POST" style="text-align: center;">
+                    <input type="email" title="Please enter a valid email address" placeholder="Email" name="emailVal" required>
+                    <br>
+                    <input type="number" title="Please enter your height in centimeters" placeholder="Height in centimeters" min="50" max="250" name="heightVal" required>
+                    <br>
+                    <input type="number" title="Please enter your weight in kilograms" placeholder="Weight in kilograms" min="10" max="150" name="weightVal" required>
+                    <br>
+                    <button type="submit" class="w3-button w3-black">Submit</button>
+                </form>
+                
+                <span></span>
+
+                <h3>Credit</h3>
+                <hr>
+                <p>
+                    <a href="https://www.everydayhealth.com/diet-nutrition/bmi/bmi-adults-yours-healthy-not-how-can-you-lose-weight/" target="_blank">Medical Information</a>
+                </p>
+                <p>
+                    <a href="https://www.cdc.gov/healthyweight/assessing/bmi/childrens_bmi/childrens_bmi_formula.html" target="_blank">BMI Equation</a>
+                </p>
+            </div>
+        </div>
+        <script>
+            $(window).on("load", function(){
+                $(".loader-wrapper").fadeOut("slow");
+            });
+        </script>
+    </body>
+
+</html>
